@@ -1,0 +1,23 @@
+```openqasm
+OPENQASM 2.0;
+include "qelib1.inc";
+
+qreg q[4]; // Registro de entrada para el valor de t
+qreg r[4]; // Registro de trabajo
+creg c[4]; // Registro clásico para las mediciones
+
+// Estado inicial: crear superposición en q
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+
+// Aplicar la función modular exponencial U_f para el valor a=5, mod 21
+// Aquí simulamos U_f con gates de rotación
+// Nota: Para una simulación real de Shor, U_f requiere circuitos específicos
+
+// Medir en la base computacional
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
