@@ -1,0 +1,32 @@
+OPENQASM 2.0;
+include "qelib1.inc";
+
+qreg q[3]; // Registro auxiliar (estado |x⟩)
+qreg phi[3]; // Registro objetivo (estado |φ⟩)
+creg c[6]; // Registro clásico para almacenar mediciones
+
+// Aplicamos el operador controlado CU, representado aquí con una rotación en Z
+// Aquí asumimos que U es una rotación, U = exp(i * theta * Z)
+// donde theta = 2 * pi / 2^n, y Z es el observable medido en el problema
+// Esto se puede ajustar de acuerdo con el operador U específico
+
+// Aplicar una compuerta de Hadamard al registro auxiliar para crear superposición
+h q[0];
+
+// Control-Z como aproximación de CU para ilustrar el operador U en OpenQASM
+// Supongamos que U = exp(i * theta * Z) y theta = 2 * pi / 2^n
+// Esta configuración usa rotaciones condicionales
+// Para ilustración, aquí hacemos una rotación Z controlada en el registro objetivo
+
+// Aplicar Controlled-U (aproximación con rotaciones)
+cx q[0], phi[0];
+rz(2 * pi / 8) phi[0];
+cx q[0], phi[0];
+
+// Mide todos los qubits
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure phi[0] -> c[3];
+measure phi[1] -> c[4];
+measure phi[2] -> c[5];
